@@ -1,6 +1,7 @@
 import struct
 import logging
 import sys
+from capstone import *
 
 class ELF_HDR:
     def __init__(self, option):
@@ -367,9 +368,26 @@ class Elf_Parse:
 
         print "after critical_function"
         for s in self.critical_function:
-            print  s.name , s.st_value, s.st_size
+            print s.name , s.st_value, s.st_size
         #     print s.data
         return self.critical_function
+
+    def get_main_address(self):
+        entry = self.elf_hdr.e_entry
+        for shr in self.elf_shdr_list[1:]:
+            if shr.name == '.text' and 'EXEC' in shr.section_flags():
+                return self.try_disasm(entry - shr.sh_addr + shr.sh_offset )
+
+
+    def try_disasm(self, start_addr):
+        md = Cs(CS_ARCH_X86, CS_MODE_32)
+        pre = None
+        for i in md.disasm(self.binary[start_addr:start_addr + 0x100] , 0x100):
+            print("0x%x:\t%s\t%s" %(i.address, i.mnemonic, i.op_str))
+            if i.mnemonic == u'call':
+                break
+            pre = i.op_str
+        return pre
 
 if __name__ == '__main__':
     args = sys.argv[1:]
@@ -378,6 +396,7 @@ if __name__ == '__main__':
     parser.parse_elf_header()
     parser.parse_elf_section_header()
     parser.parse_elf_program_header()
-    parser.get_function_table()
+    # parser.get_function_table()
+    print parser.get_main_address()
     print "over"
 
