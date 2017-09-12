@@ -292,9 +292,8 @@ class SYMBOL:
         return False if self.st_shndx in [0xfff1, 0xfff2, 0] else True
 
 class Elf_Parse:
-    name_list = ["scanf", "__isoc99_scanf","printf", "gets", "puts", "getchar", "putchar", "getc", "putc",
-                 "open","read", "write",
-                 "alloc", "realloc", "free", "memcpy", "strcpy", "strncpy", "strlen", "strcat", "strcmp",
+    name_list = ["scanf", "__isoc99_scanf", "printf", "gets", "puts", "getchar", "putchar", "getc", "putc",
+                 "open", "read", "write", "malloc",  "realloc", "free", "memcpy", "strcpy", "strncpy", "strlen", "strcat", "strcmp",
                  "strncmp", "memset", "strstr", "atoi"]
 
     def __init__(self, file_name, offset=0):

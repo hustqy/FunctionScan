@@ -34,14 +34,9 @@ def similariy(data1 ,data2):
     return com(words1,words2)
 
 MaxConfidence = 0.2
-def main(input_path , template_file):
 
-    # with open (path , 'rb') as f:
-    #     data = f.read()
-    # md = Cs(CS_ARCH_X86, CS_MODE_32)
-    # for i in md.disasm(data, 0x1000):
-    #     print("0x%x:\t%s\t%s" %(i.address, i.mnemonic, i.op_str))
-    # src_dump = objdump(template_file,"template.dump")
+
+def main(input_path , template_file):
     with open(input_path , 'r') as f:
         input_binary = f.read()
     # input_binary = input_binary[:30]
