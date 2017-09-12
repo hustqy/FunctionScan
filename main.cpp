@@ -250,6 +250,14 @@ void testStrcmp(  ADDR testFunc ) {
         sleep (1);
     }
 }*/
+
+typedef void (* func) (ADDR ) ; 
+func funcaddrs [10] = {testStrcat ,testStrncat ,testStrncpy ,testStrcpy ,testMemset ,testStrcmp };
+void ForLoop (ADDR testFunc) {
+    for ( int i = 0 ; funcaddrs[i] != 0 ; i ++ ) {
+        (*funcaddrs[i]) (testFunc);
+    }
+}
 int main (int argc , char * argv[]) {
 
     if ( argc < 1 )
@@ -282,7 +290,8 @@ int main (int argc , char * argv[]) {
 
     //testStrcat ( StrcatFunc );
     //testStrcat ( StrcpyFunc );
-    testMemset ( MemsetFunc );
-    testStrcmp ( StrcmpFunc );
+    //testMemset ( MemsetFunc );
+    //testStrcmp ( StrcmpFunc );
+    ForLoop ( MemsetFunc);
     return 0 ;
 }
