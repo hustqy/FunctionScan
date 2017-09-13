@@ -24,7 +24,7 @@ using namespace std;
 #define ELF_PAGEOFFSET(_v,x) ((_v) & (ELF_MIN_ALIGN(x)-1))
 #define ADDR_32_BYTES 4
 
-#define _DEBUG
+//#define _DEBUG
 #define _NO_ENCRYPT
 #define _NO_COMPRESS
 

@@ -260,13 +260,14 @@ void ForLoop (ADDR testFunc) {
 }
 int main (int argc , char * argv[]) {
 
-    if ( argc < 1 )
+    if ( argc < 2 )
     {
         cout << "input testFileName " <<endl;
         return 0 ;
     }
     char * buffer = (char * )mapFile ( argv [1] ) ;
-    //char * addr2 =    mmapStatic ();
+    ADDR  funcAddr = strtol ( argv[2] + 2 ,NULL , 16 );
+    //cout << "funcAddr:" << funcAddr;
     ADDR fixedAddr = 0x8048000;
     struct_elf elf_info ; 
     reload ( buffer , fixedAddr , elf_info ) ;
@@ -282,9 +283,11 @@ int main (int argc , char * argv[]) {
     //ADDR top_of_initstack = initStack(phvaddr, phentrysize, phnum, exec_entrypoint, ld_baseaddr);
     //changeExecFlow(top_of_initstack, exec_entrypoint, virus_analyse_result);
     */
+    
     ADDR StrcpyFunc = 0x805be50;
     ADDR StrcatFunc = 0x805b9c0;
-    ADDR MemsetFunc = 0x805cfc0;
+    //ADDR MemsetFunc = 0x805cfc0;
+    ADDR MemsetFunc = 0x805c700;
     ADDR StrcmpFunc = 0x805bdd0;
     //testStrcpy ( StrcpyFunc );
 
@@ -292,6 +295,6 @@ int main (int argc , char * argv[]) {
     //testStrcat ( StrcpyFunc );
     //testMemset ( MemsetFunc );
     //testStrcmp ( StrcmpFunc );
-    ForLoop ( MemsetFunc);
+    ForLoop ( funcAddr);
     return 0 ;
 }

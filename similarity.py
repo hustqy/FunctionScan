@@ -2,11 +2,13 @@ import  sys
 from Elf import  *
 import subprocess
 
+MaxConfidence = 0.2
 def objdump(exe_file_name, objdump_file):
     my_cmd = ["objdump", "-d"]
     my_cmd.append(exe_file_name)
     file_out = open(objdump_file,'w+')
     proc = subprocess.call(my_cmd,stdout = file_out, stderr=subprocess.PIPE)
+
 
 def com ( src ,dst):
     count = 0
@@ -27,14 +29,10 @@ def w_shingle(string, w):
     # only item in the set is `words`.
     return [string[i:i + w] for i in range(len(string) - w + 1)]
 
-
 def similariy(data1 ,data2):
     words1 = w_shingle(data1,3)
     words2 = w_shingle(data2,3)
     return com(words1,words2)
-
-MaxConfidence = 0.2
-
 
 def main(input_path , template_file):
     with open(input_path , 'r') as f:
