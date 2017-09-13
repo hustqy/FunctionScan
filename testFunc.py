@@ -3,8 +3,11 @@ import sys
 
 
 def testFuncExe(wrapper_exe_file, sample_exe_file , func_addr):
-    my_cmd = [wrapper_exe_file, sample_exe_file,func_addr]
-    subprocess.Popen(my_cmd)
+    my_cmd = [wrapper_exe_file, sample_exe_file, func_addr]
+    p = subprocess.Popen(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    out, err = p.communicate()
+    # print out
+    return out
 
 
 if __name__ == '__main__':
